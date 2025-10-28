@@ -19,7 +19,7 @@ const HALF_LIFE_PERIOD = 5730;
  */
 function dateSample(sampleActivity) {
   const activity = Number.parseFloat(sampleActivity);
-  if (sampleActivity <= 0 || sampleActivity > MODERN_ACTIVITY || Number.isNaN(activity)) return false;
+  if (typeof sampleActivity !== 'string' || activity <= 0 || activity > MODERN_ACTIVITY || Number.isNaN(activity)) return false;
 
   const k = Math.log(2) / HALF_LIFE_PERIOD;
   const t = Math.log(MODERN_ACTIVITY / activity) / k;
