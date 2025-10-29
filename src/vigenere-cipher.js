@@ -20,14 +20,54 @@ const { NotImplementedError } = require('../lib');
  *
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+  constructor(isDirect = true) {
+    this.isDirect = isDirect;
   }
 
-  decrypt() {
-    // Remove line below and write your code here
-    throw new NotImplementedError('Not implemented');
+  encrypt(str, key) {
+    if (!str || !key) throw new Error('Incorrect arguments!');
+    str = str.toUpperCase();
+    key = key.toUpperCase();
+
+    let res = '';
+    let keyIndex = 0;
+
+    for (let char of str) {
+      if (char >= 'A' && char <= 'Z') {
+        const chCode = char.charCodeAt(0) - 65;
+        const keyCode = key[keyIndex % key.length].charCodeAt(0) - 65;
+        const resChar = String.fromCharCode(((chCode + keyCode) % 26) + 65);
+
+        res += resChar;
+        keyIndex++;
+      }
+      else {
+        res += char;
+      }
+    }
+    return this.isDirect ? res : res.split('').reverse().join('');
+  }
+
+  decrypt(str, key) {
+    if (!str || !key) throw new Error('Incorrect arguments!');
+    str = str.toUpperCase();
+    key = key.toUpperCase();
+
+    let res = '';
+    let keyIndex = 0;
+
+    for (let char of str) {
+      if (char >= 'A' && char <= 'Z') {
+        const chCode = char.charCodeAt(0) - 65;
+        const keyCode = key[keyIndex % key.length].charCodeAt(0) - 65;
+        const dec = String.fromCharCode(((chCode - keyCode + 26) % 26) + 65);
+        res += dec;
+        keyIndex++;
+      } else {
+        res += char;
+      }
+    }
+    return this.isDirect ? res : res.split('').reverse().join('');
   }
 }
 
