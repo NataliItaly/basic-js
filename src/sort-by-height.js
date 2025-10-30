@@ -13,7 +13,7 @@ const { NotImplementedError } = require('../lib');
  */
 function sortByHeight( arr ) {
   const digitInd = arr.reduce((acc, item, i) => item === -1 ? [...acc, i] : acc, []);
-  console.log(digitInd);
+
   const sorted = arr.sort((a, b) => a - b).filter(el => el !== -1);
   const count = arr.length - sorted.length;
   for (let i = 0; i < digitInd.length; i++) {

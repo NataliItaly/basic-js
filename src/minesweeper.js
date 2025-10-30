@@ -27,26 +27,19 @@ function minesweeper(matrix) {
   const newMatrix = Array.from({length: matrix.length}, () => Array(matrix[0].length).fill(0));
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] === true) {
-        newMatrix[i][j] = 1;
-      }
-      else {
+      let count = 0;
+      if (j > 0 && matrix[i][j - 1] === true  ) count++;
+      if (j + 1 < matrix[i].length && matrix[i][j + 1] === true  ) count++;
+      if (i > 0 && j > 0 && matrix[i - 1][j - 1] === true  ) count++;
+      if (i > 0 && matrix[i - 1][j] === true  ) count++;
+      if (i > 0 && j + 1 < matrix[i - 1].length && matrix[i - 1][j + 1] === true  ) count++;
+      if (i + 1 < matrix.length && j > 0 && matrix[i + 1][j - 1] === true  ) count++;
+      if (i + 1 < matrix.length && matrix[i + 1][j] === true  ) count++;
+      if (i + 1 < matrix.length && j + 1 < matrix[i + 1].length && matrix[i + 1][j + 1] === true  ) count++;
 
-        let count = 0;
-        if (matrix[i][j - 1] && matrix[i][j - 1] === true  ) count++;
-        if (matrix[i][j + 1] && matrix[i][j + 1] === true  ) count++;
-        if (i > 0 && j > 0 && matrix[i - 1][j - 1] === true  ) count++;
-        if (i > 0 && matrix[i - 1][j] === true  ) count++;
-        if (i > 0 && j + 1 < matrix[i - 1].length && matrix[i - 1][j + 1] === true  ) count++;
-        if (i + 1 < matrix.length && j > 0 && matrix[i + 1][j - 1] === true  ) count++;
-        if (i + 1 < matrix.length && matrix[i + 1][j] === true  ) count++;
-        if (i + 1 < matrix.length && j + 1 < matrix[i + 1].length && matrix[i + 1][j + 1] === true  ) count++;
-        console.log('count', count)
-        newMatrix[i][j] = count;
-      }
+      newMatrix[i][j] = count;
     }
   }
-  console.log(newMatrix)
   return newMatrix
 }
 
